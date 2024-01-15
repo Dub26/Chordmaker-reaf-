@@ -66,5 +66,15 @@ public class Functions {
         }
         return dt;
     }
+    public Note[] basicChord(String s,String x){
+        int[] w={1,3,5};
+        Note[] scale=pattern(s,7,x);
+        Note[] chordnotes=new Note[3];
+        for(int i=0;i<3;i++){
+            chordnotes[i]=scale[w[i]-1];
+        }
+        return chordnotes;
+    }
+
 
 }
