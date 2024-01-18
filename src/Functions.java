@@ -37,18 +37,19 @@ public class Functions {
         for(int i=0;i< flat.length;i++){
             if(f.equalsIgnoreCase(flat[i])) return notes.notes[whn+1].name+"b";
         }
-
         for(int i=0;i<aunt.length;i++) {
             if (f.equalsIgnoreCase(aunt[i])) return notes.notes[whn - 1].name + "#";
         }
+        if(f.charAt(f.length()-1)=='#') return notes.notes[whn - 1].name + "#";
+        if(f.charAt(f.length()-1)=='b') return notes.notes[whn+1].name+"b";
         return "a";
     }
     public int whichnote(String s){
         Notes notes=new Notes();
-        String af="#b";
+
         int dt=0;
         if(s.length()>1) {
-            if(s.charAt(1)==af.charAt(0)) dt++;
+            if(s.charAt(1)=='#') dt++;
             else dt--;
             String g=s.substring(0,1);
             for(int i=0;i<12;i++){
@@ -66,9 +67,8 @@ public class Functions {
         }
         return dt;
     }
-    public Note[] basicChord(String s,String x){
+    public Note[] basicChord( Note[] scale){
         int[] w={1,3,5};
-        Note[] scale=pattern(s,7,x);
         Note[] chordnotes=new Note[3];
         for(int i=0;i<3;i++){
             chordnotes[i]=scale[w[i]-1];
