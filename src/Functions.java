@@ -75,6 +75,25 @@ public class Functions {
         }
         return chordnotes;
     }
+    public Note[] add(Note[] scale,Note[] chord,int which){
+        Note desired=scale[which-1];
+        Note[] nch=new Note[chord.length+1];
+        for(int i=0;i<chord.length;i++){
+            nch[i]=chord[i];
+        }
+        nch[nch.length-1]=desired;
+        return nch;
+    }
+    public Note[] combine(Note[] a,Note[] b){
+        Note[] last=new Note[a.length+b.length];
+        for(int i=0;i<a.length;i++){
+            last[i]=a[i];
+        }
+        for(int i=0;i<b.length;i++){
+            last[a.length+i]=b[i];
+        }
+        return last;
+    }
 
 
 }
