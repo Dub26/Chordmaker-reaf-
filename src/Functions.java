@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Functions {
     public Note[] pattern(String s,int length,String x){
         int[] w={};
@@ -17,17 +18,23 @@ public class Functions {
 
         con[0].name=s;
         int a=0;
+        if(x.trim().equalsIgnoreCase("minor")) {
+            String cc=notes.notes[(dt+3)%12].name;
+            if(cc !="N" && cc.charAt(cc.length()-1)!='#' && cc.charAt(cc.length()-1)!='b' ) s=notes.notes[(dt+3)%12].name;
+            else s=flatoraunt(s,(dt+3)%12);
+        }
+
         for(int i=0;i<length-1;i++){
             a+=w[i%7];
+
             if(notes.notes[(dt+a)%12].name.equalsIgnoreCase("N")){
-                if(x.trim().equalsIgnoreCase("minor")) {
-                    s=notes.notes[(dt+3)%12].name;
-                }
                 con[i+1].name=flatoraunt(s,(dt+a)%12);
                 continue;
             }
+
             con[i+1].name=notes.notes[(dt+a)%12].name;
         }
+
         return con;
     }
     public String flatoraunt(String f,int whn){
@@ -35,10 +42,10 @@ public class Functions {
         String[] aunt={"g","d","a","e","b","F#","C#"};
         String[] flat={"f","bb","eb","ab","db","gb","cb"};
         for(int i=0;i< flat.length;i++){
-            if(f.equalsIgnoreCase(flat[i])) return notes.notes[whn+1].name+"b";
+            if(f.equalsIgnoreCase(flat[i])) return notes.notes[(whn+1)%12].name+"b";
         }
         for(int i=0;i<aunt.length;i++) {
-            if (f.equalsIgnoreCase(aunt[i])) return notes.notes[whn - 1].name + "#";
+            if (f.equalsIgnoreCase(aunt[i])) return notes.notes[(whn%12)-1].name + "#";
         }
         if(f.charAt(f.length()-1)=='#') return notes.notes[whn - 1].name + "#";
         if(f.charAt(f.length()-1)=='b') return notes.notes[whn+1].name+"b";
@@ -93,6 +100,11 @@ public class Functions {
             last[a.length+i]=b[i];
         }
         return last;
+    }
+    public String input(){
+        Scanner sc=new Scanner(System.in);
+        String n=sc.nextLine();
+        return n;
     }
 
 
