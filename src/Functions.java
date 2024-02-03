@@ -1,11 +1,7 @@
 import java.util.Scanner;
 public class Functions {
-    public Note[] pattern(String s,int length,String x){
-        int[] w={};
-        int[] wa={2,2,1,2,2,2,1};
-        int[] wb={2,1,2,2,1,2,2};
-        if(x.trim().equalsIgnoreCase("major"))  w=wa;
-        if(x.trim().equalsIgnoreCase("minor"))  w=wb;
+    public Note[] pattern(String s,int length){
+        int[] w={2,2,1,2,2,2,1};
         Notes notes=new Notes();
         Note[] con=new Note[length];
 
@@ -13,17 +9,10 @@ public class Functions {
             con[i]=new Note();
         }
 
-
         int dt=whichnote(s);
 
         con[0].name=s;
         int a=0;
-        if(x.trim().equalsIgnoreCase("minor")) {
-            String cc=notes.notes[(dt+3)%12].name;
-            if(cc !="N" && cc.charAt(cc.length()-1)!='#' && cc.charAt(cc.length()-1)!='b' ) s=notes.notes[(dt+3)%12].name;
-            else s=flatoraunt(s,(dt+3)%12);
-        }
-
         for(int i=0;i<length-1;i++){
             a+=w[i%7];
 
@@ -35,6 +24,22 @@ public class Functions {
             con[i+1].name=notes.notes[(dt+a)%12].name;
         }
 
+        return con;
+    }
+    public Note[] minor(String s){
+        Notes note=new Notes();
+        Note m=new Note("");
+        int n=whichnote(s);
+        n+=3;
+        if(note.notes[n%12].name=="N"){
+            if(s.charAt(s.length()-1)=='#') m.name=note.notes[(n-1)%12].name+"#";
+            else  m.name=note.notes[(n+1)%12].name+"b";
+        } else m=note.notes[n%12];
+        Note[] maj=pattern(m.name,28);
+        Note[] con=new Note[14];
+        for(int i=0;i<14;i++){
+            con[i]=maj[i+5];
+        }
         return con;
     }
     public String flatoraunt(String f,int whn){
@@ -49,7 +54,7 @@ public class Functions {
         }
         if(f.charAt(f.length()-1)=='#') return notes.notes[whn - 1].name + "#";
         if(f.charAt(f.length()-1)=='b') return notes.notes[whn+1].name+"b";
-        return "a";
+        return "x";
     }
     public int whichnote(String s){
         Notes notes=new Notes();
