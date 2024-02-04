@@ -43,6 +43,7 @@ public class Functions {
             if((s.charAt(s.length()-1)=='#'&& con[i].name.charAt(con[i].name.length()-1)=='b') || (s.charAt(s.length()-1)=='b'&& con[i].name.charAt(con[i].name.length()-1)=='#')) v=true;
             if(v) con[i]=translator(con[i]);
         }
+        con[0].name=s;
         return con;
     }
     public String flatoraunt(String f,int whn){
@@ -128,6 +129,39 @@ public class Functions {
             return s;
         }
         return s;
+    }
+    public Note[] theoricly(Note[] scale){
+        String[] naturals={"C","D","E","F","G","A","B"};
+        int a=0;
+        for(int i=0;i<7;i++){
+            if(scale[0].name.charAt(0)==naturals[i].charAt(0)){
+                a=i; break;
+            }
+        }
+        Note[] con=new Note[scale.length];
+        for(int i=0;i<scale.length;i++){
+            con[i]=new Note();
+            con[i].name=naturals[(i+a)%7];
+        }
+        for(int i=0;i<scale.length;i++){
+            int dt=whichnote(con[i].name);
+            int at=whichnote(scale[i].name);
+            if(dt-at>2) at=12;
+            if(dt-at<-2) dt=12;
+            boolean v=true;
+            while(v){
+                if(dt-at>0){
+                    con[i].name+="b";
+                    dt--;
+                }
+                if(dt-at<0){
+                    con[i].name+="#";
+                    dt++;
+                }
+                if(dt-at==0) v=false;
+            }
+        }
+        return con;
     }
 
 

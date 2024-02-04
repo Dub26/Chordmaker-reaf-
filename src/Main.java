@@ -13,6 +13,7 @@ public class Main {
             if(cs==1) scale=f.pattern(n,14);
             if(cs==2) scale=f.minor(n);
             Note[] chord=f.basicChord(scale);
+            Note[] teo=f.theoricly(scale);
 
             for(int j=0;j<8;j++){
                 System.out.println(scale[j].name);
@@ -21,6 +22,9 @@ public class Main {
             System.out.print(chord[0].name+","+chord[1].name+","+chord[2].name);
 
             System.out.println();
+            for(int j=0;j<8;j++){
+                System.out.println(teo[j].name);
+            }
 
         }
 
