@@ -38,7 +38,10 @@ public class Functions {
         Note[] maj=pattern(m.name,28);
         Note[] con=new Note[14];
         for(int i=0;i<14;i++){
+            boolean v=false;
             con[i]=maj[i+5];
+            if((s.charAt(s.length()-1)=='#'&& con[i].name.charAt(con[i].name.length()-1)=='b') || (s.charAt(s.length()-1)=='b'&& con[i].name.charAt(con[i].name.length()-1)=='#')) v=true;
+            if(v) con[i]=translator(con[i]);
         }
         return con;
     }
@@ -110,6 +113,21 @@ public class Functions {
         Scanner sc=new Scanner(System.in);
         String n=sc.nextLine();
         return n;
+    }
+    public Note translator(Note s){
+        Notes note=new Notes();
+        int a=whichnote(s.name);
+        if(s.name.charAt(s.name.length()-1)=='#'){
+            a++;
+            s.name=note.notes[a].name+"b";
+            return s;
+        }
+        if(s.name.charAt(s.name.length()-1)=='b'){
+            a--;
+            s.name=note.notes[a].name+"#";
+            return s;
+        }
+        return s;
     }
 
 
