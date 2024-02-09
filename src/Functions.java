@@ -163,6 +163,33 @@ public class Functions {
         }
         return con;
     }
-
+    public Data control(String input,String word){
+        Data data1=new Data(false,0);
+        for(int i=0;i<input.length()-word.length()+1;i++){
+            boolean v=true;
+            for(int j=0;j<word.length();j++){
+                if(input.charAt(i+j)!=word.charAt(j)) v=false;
+            }
+            if(v) {
+                data1.v=true;
+                data1.n=i+3;
+                return data1;
+            }
+        }
+        return data1;
+    }
+    public int getnumber(String word,int start){
+        int a=2;
+        if(start+a>word.length()) a=1;
+        String s=word.substring(start,start+a);
+        while(true){
+            try{
+                int out=Integer.parseInt(s);
+                return out;
+            } catch(Exception e){
+                s=word.substring(start,start+a-1);
+            }
+        }
+    }
 
 }
