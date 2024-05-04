@@ -17,6 +17,7 @@ public class Main {
                 String main=input.substring(0,1);
                 Data datamaj=f.control(input,"maj");
                 Data dataadd=f.control(input,"add");
+                Data datamm=f.control(input,"mm");
                 String min="";
                 for(int i=0;i<input.length()+1;i++){
                     min=input.substring(0,i);
@@ -24,24 +25,27 @@ public class Main {
 
                 Data datam=f.control(min,"m");
                 if(datamaj.v) datam.v=false;
+                if(datamm.v) datam.v=true;
                 try{
                     if(input.charAt(1)=='#' || input.charAt(1)=='b') main=input.substring(0,2);
                 }catch (Exception e){
                     System.out.println();
                 }
                 Note[] scale=f.pattern(main,14);
-                scale=f.theoricly(scale);
                 if(datam.v) scale=f.minor(main);
+                scale=f.theoricly(scale);
                 Note[] chord=f.basicChord(scale);
                 if(datamaj.v){
                     Note[] majscale=f.pattern(main,14);
+                    majscale=f.theoricly(majscale);
                     chord=f.add(majscale,chord,f.getnumber(input,datamaj.n));
+                    if(f.getnumber(input,datamaj.n)>7) chord=f.add(majscale,chord,7);
                 }
                 if(dataadd.v){
                     chord=f.add(scale,chord,f.getnumber(input,dataadd.n));
                 }
-                for(Note n:scale){
-                    System.out.println(n.name+" ");
+                for(Note nigga:scale){
+                    System.out.println(nigga.name);
                 }
                 for(Note n:chord){
                     System.out.print(n.name+" ");
@@ -98,11 +102,11 @@ public class Main {
                 int answer2=sc.nextInt();
                 if(answer2==1){
                     for(int j=0;j<8;j++){
-                        System.out.println(teo[j].name);
+                        System.out.println(teo[j].name+" ");
                     }
                     System.out.println();
                     for(Note note:tchord){
-                        System.out.print(note.name);
+                        System.out.print(note.name+" ");
                     }
                     System.out.println();
                 }
